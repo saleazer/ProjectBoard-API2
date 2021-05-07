@@ -24,6 +24,16 @@ router.get('/board-item', auth, async (req, res) => {
         res.status(400).send(e)
     }
 })
+//GET route to return all items for a single user
+router.get('/board-item/byUser/:id', auth, async (req, res) => {
+    try {
+        const owner = req.params.id
+        const allItems = await BoardItem.find({ owner })
+            res.status(200).send(allItems)
+    } catch (e) {
+        console.log(e)
+    }
+})
 
 //GET route to return all items for a single project
 router.get('/board-item/byParent/:id', auth, async (req, res) => {
