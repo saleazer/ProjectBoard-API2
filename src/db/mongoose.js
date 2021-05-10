@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const url = process.env.MONGO_URL || 'mongodb+srv://nodejsuser:N0d3JSUs3r%21@sal-db-01.5va2s.mongodb.net/projectBoardDB?retryWrites=true&w=majority'
+const url = process.env.MONGO_URL
 
 mongoose.connect(url, {
     useNewUrlParser: true,
