@@ -46,7 +46,7 @@ router.get('/board-item/byParent/:id', auth, async (req, res) => {
     }
 })
 
-// PATCH to update single task information
+// PATCH to update single item information
 router.patch('/board-item/:id', async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['title', 'description', 'state', 'priority', 'effort']
@@ -79,6 +79,21 @@ router.delete('/board-item/:id', async (req, res) => {
         } else {
             res.send(item)
         }
+    } catch (e) {
+        res.status(500).send(e) 
+    }
+})
+
+// DELETE items by projectID
+router.delete('/board-item/byParent/:id', auth, async (req, res) => {
+    try {
+        await BoardItem.deleteMany({ parentID: req.params.id }, function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        })
     } catch (e) {
         res.status(500).send(e) 
     }
