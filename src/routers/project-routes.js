@@ -15,6 +15,30 @@ router.post('/projects', auth, async (req, res) => {
     }
 })
 
+// PATCH to update single project information
+router.patch('/projects/:id', async (req, res) => {
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['title', 'description']
+  const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+  if (!isValidOperation) {
+      return res.status(400).send({error: "Invalid updates!"})
+  }
+  try {
+      const updatedProject = await Project.findById(req.params.id)
+      updates.forEach((update) => updatedProject[update] = req.body[update])
+      await updatedProject.save()
+
+      if (!updatedProject) {
+          return res.status(404).send()
+      } else {
+          res.send(updatedProject)
+      }        
+  } catch (e) {
+      res.status(400).send(e)
+  }
+})
+
+
 // Gets all projects assigned to the auth'ed person
 router.get('/projects', auth, async (req, res) => {
   try {

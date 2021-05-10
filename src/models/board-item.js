@@ -5,7 +5,6 @@ const boardItemSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        unique: true
     },
     description: {
         type: String,
@@ -31,9 +30,6 @@ const boardItemSchema = new mongoose.Schema({
     },
     parentID: {
         type: String,
-    },
-    dueDate: {
-        type: String
     }
 }, {
     strict: true
