@@ -5,15 +5,14 @@ const boardItemSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
+        unique: false
     },
     description: {
         type: String,
         trim: true,
-        required: false,        
     },
     state: {
         type: String,
-        required: true,
         default: "New"
     },
     priority: {
